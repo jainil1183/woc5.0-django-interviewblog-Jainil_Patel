@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+
+<br>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-md-12">
+             <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="card-title"><strong> Welcome, {{ user.first_name }} {{ user.last_name }}&nbsp;</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-hover">
+                            <table class="table">
+                            <thead class=" text-primary">
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Usename</td>
+                                <td>:</td>
+                                <td>{{ user.username }} </td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td>:</td>
+                                <td> {{ user.first_name }} </td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td>:</td>
+                                <td>{{ user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email Address</td>
+                                <td>:</td>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td> Degree </td>
+                                <td>:</td>
+                                <td>{{ details.degree }} </td>
+                            </tr>
+                            <tr>
+                                <td>Programme</td>
+                                <td>:</td>
+                                <td>{{ details.program }}</td>
+                            </tr>
+                            <tr>
+                                <td>Graduation Year</td>
+                                <td>:</td>
+                                <td>{{ details.graduation_year }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                                            </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+
+
+{% else %}
+	<h1>Sorry! You Must Be Logged In To View This Page...</h1>
+
+	<a href="{% url 'login' %}">Login Here</a>
+{% endif %}
+		{% endblock %}
+

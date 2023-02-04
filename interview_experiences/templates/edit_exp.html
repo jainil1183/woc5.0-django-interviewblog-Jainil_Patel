@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+	<center>
+	<h1>Edit Your Experience</h1>
+	<br/><br/>
+	{% if submitted %}
+		Your Experience Was Updated Successfully!!!
+
+	{% else %}
+		<form action="" method=POST enctype="multipart/form-data">
+			{% csrf_token %}
+
+			{{ form.as_p }}
+			{{ form.media }}
+
+
+			<input type="submit" value="Submit" class="btn btn-secondary">
+
+		</form>
+	{% endif %}
+	</center>
+{% else %}
+	<h1>Sorry! You Must Be Logged In To View This Page...</h1>
+
+	<a href="{% url 'login' %}">Login Here</a>
+{% endif %}
+
+{% endblock %}

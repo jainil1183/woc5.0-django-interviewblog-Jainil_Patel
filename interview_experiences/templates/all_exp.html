@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% load lower_filter %}
+    {% load remove_html %}
+
+<br>
+{% if allexp.count == 0 %}
+<center>
+<h1>Sorry!! We don't have any experience to display!!</h1>
+</center>
+
+{% else %}
+	<h2>DAIICT Interview Experiences</h2>
+	<br>
+
+    {% for exp in allexp %}
+	<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 mx-2 shadow-sm h-md-250 position-relative bg-light">
+        <div class="col p-4 d-flex flex-column my position-static">
+          <h3 class="d-inline-block mb-2 text-primary">{{exp.title}} {{exp.company}} {{exp.type_offer}}</h3>
+          <div class="mb-1 text-muted">{{exp.job_profile}}</div>
+                <p class="card-text mb-auto">{{exp.content|truncatechars:200|cleanhtml }}</p>
+            <br>
+          <strong class="mb-0" style="text-align:right;">By {{exp.author}} At {{exp.timestamp}}</strong>
+          <a href="/home/all_exp/{{exp.slug}}/">Continue reading</a>
+        </div>
+        <div>
+            {% if isbook|get_item:exp.id %}
+            <a href="{% url 'add_bookmark' exp.id %}">
+        <button type="button" class= "btn btn-info mb-2 mx-2" style="float: right;" ><span class="bi bi-bookmark"></span> Remove Bookmark </button>
+            {% else %}
+                <a href="{% url 'add_bookmark' exp.id %}">
+        <button type="button" class= "btn btn-info mb-2 mx-2" style="float: right;" ><span class="bi bi-bookmark"></span> Add Bookmark </button>
+
+            {% endif %}
+
+
+        </a>
+            {% if user == exp.username %}
+                        <a class= "btn btn-danger mb-2 mx-2" style="float: right;" href="{% url 'delete_exp' exp.slug%} ">Delete</a>
+
+            <a class= "btn btn-primary mb-2 mx-2" style="float: right;" href="{% url 'edit_exp' exp.slug%} ">Update</a>
+            {% endif %}
+                </a>
+        </div>
+
+      </div>
+
+    {% endfor %}
+{% endif %}
+{% else %}
+	<h1>Sorry! You Must Be Logged In To View This Page...</h1>
+
+	<a href="{% url 'login' %}">Login Here</a>
+{% endif %}
+		{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<center>
+	<h1>Welcome</h1>
+	<br/><br/>
+	<a href="/login" >
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="button">Log In</button>
+      </div>
+        </a>
+        	<br/><br/>
+      <a href="/register" >
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="button">Register</button>
+      </div>
+        </a>
+
+        <br/><br/>
+      <a href="/reset_password" >
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="button">Forgot Password</button>
+      </div>
+        </a>
+	</center>
+
+{% endblock %}

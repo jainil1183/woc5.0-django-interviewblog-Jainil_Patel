@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<br>
+{% if submitted %}
+		Your Experience Was Deleted Succefully!!!
+
+	{% else %}
+<h2>Are you sure you want to delete {{exp.title}} ?</h2>
+
+<center>
+	<form action="{% url 'delete_exp' exp.slug %}" method="POST">
+		{% csrf_token %}
+		<button class= "btn btn-danger mb-2 mx-2" type="submit">
+		<a>Delete</a>
+		</button>
+		<a class= "btn btn-secondary mb-2 mx-2" href="/home/all_exp/{{exp.slug}}/">Cancel</a>
+
+	</form>
+</center>
+{% endif %}
+
+{% else %}
+	<h1>Sorry! You Must Be Logged In To View This Page...</h1>
+
+	<a href="{% url 'login' %}">Login Here</a>
+{% endif %}
+		{% endblock %}

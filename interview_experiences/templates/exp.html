@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{% load lower_filter %}
+
+<br>
+
+{% load humanize %}
+
+<article class="container">
+        <h2 class="blog-post-title mb-1">Company: {{exp.company}} ,Offer: {{exp.type_offer}} ,Profile: {{exp.job_profile}} ,Year: {{exp.year}} by {{exp.author}}</h2>
+        <p class="blog-post-meta"></p>
+        <hr>
+        <p>{{exp.content|safe}}</p>
+
+        {% if user == exp.username %}
+
+        <a class= "btn btn-primary" href="{% url 'edit_exp' exp.slug %}">Update</a>
+        <a class= "btn btn-danger" href="{% url 'delete_exp' exp.slug %}">Delete</a>
+
+
+        {% endif %}
+
+        {% if is_booked == True %}
+        <a href="{% url 'add_bookmark' exp.id %}">
+        <button type="button" class="btn btn-primary"><span class="bi bi-bookmark"></span> Remove Bookmark </button>
+        </a>
+        {% else %}
+        <a href="{% url 'add_bookmark' exp.id %}">
+        <button type="button" class="btn btn-primary"><span class="bi bi-bookmark"></span> Add Bookmark </button>
+        </a>
+        {% endif %}
+
+
+        <hr>
+
+        <h2>Comments:({{ comments.count }})</h2>
+        <form action="/home/PostComment/" method="POST">
+        <div class="mt-3">
+                {% csrf_token %}
+                <div class="px-2">
+                <input type="text" class="form-control" placeholder="Enter comment as {{user.first_name}}" size="700" name="content">
+                <input type="hidden" name="exp_id" value="{{exp.id}}">
+                <input type="hidden" name="parent_id" value="">
+                    </div>
+        </div>
+        </form>
+
+
+        {% for comment in comments %}
+        <div class="row my-3">
+            <div class="col-md-1 align-right">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlEwyT0R7eGaVuB6sbOgaZVhzaKMk8tAoQIw&usqp=CAU" width="60" height="60" class="mx-auto rounded-circle mr-1">
+            </div>
+        <div class="col-md-11">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-row align-items-center">
+                            <span class="mr-2">{{comment.writer.first_name}} {{comment.writer.last_name}}</span>
+                    </div>
+                    <small>{{comment.timestamp | naturaltime }}</small>
+                </div>
+                <div>{{comment.content}}</div>
+
+            <br>
+            <div class="mx-0">
+                <button class="btn btn-sm btn-secondary my-1" type="button" data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.id}}" aria-expanded="false" aria-controls="replyBox{{comment.id}}">
+                    Reply
+                </button>
+                <div class="collapse" id="replyBox{{comment.id}}">
+                    <div class="card card-body my-2">
+                        <form action="/home/PostComment/" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control my-2" placeholder="Enter your Reply..." size="700" name="content">
+                                <input type="hidden" name="exp_id" value="{{exp.id}}">
+                                <input type="hidden" name="parent_id" value="{{comment.id}}">
+                            </div>
+                            <button type="submit" class="btn btn-primary my-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="replies my-2 ">
+                    {% for reply in replies|get_item:comment.id %}
+                    <div class="row my-2">
+                        <div class="col-md-1 ">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlEwyT0R7eGaVuB6sbOgaZVhzaKMk8tAoQIw&usqp=CAU" width="60" height="60" class="rounded-circle mr-3">
+                        </div>
+                        <div class="col-md-11">
+                            <div class="col-md-11 ">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex flex-row align-items-center">
+					                        <span class="mr-2">{{reply.writer.first_name}} {{reply.writer.last_name}}</span>
+                                        <div class="mx-2">
+                                        (<small>{{reply.timestamp | naturaltime }}</small>)
+                                            </div>
+				                    </div>
+                                </div>
+                                <div>{{reply.content}}</div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
+            </div>
+            </div>
+            </div>
+
+    {% endfor %}
+
+</article>
+
+<br>
+<br>
+<br>
+{% else %}
+	<h1>Sorry! You Must Be Logged In To View This Page...</h1>
+
+	<a href="{% url 'login' %}">Login Here</a>
+{% endif %}
+{% endblock %}

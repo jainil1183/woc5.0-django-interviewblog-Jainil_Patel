@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<centre>
+<h1>
+	Register User</h1>
+	</centre>
+	<br/><br/>
+
+		<form action= "" method='post'>
+		  <div class="form-group">
+			<label for="username">Username</label>
+			<input required type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username">
+		  </div>
+			<br/>
+		  <div class="form-group">
+			<label for="first_name">First Name</label>
+			<input required type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter Your First Name">
+		  </div>
+			<br/>
+		  <div class="form-group">
+			<label for="last_name">Last Name</label>
+			<input required type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Your Last Name">
+		  </div>
+			<br/>
+		  <div class="form-group">
+			<label for="email">Email address</label>
+			<input required type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+		  </div>
+			<br/>
+			Degree
+			<select required class="form-select" id="degree" name="degree">
+			  <option value="">Choose Degree</option>
+			  <option value="B.Tech">B.Tech</option>
+			  <option value="M.Tech">M.Tech</option>
+			</select>
+			<br/>
+			Program
+			<select required class="form-select" id="program" name="program">
+			  <option value="">Choose Program</option>
+			  <option value="MnC">MnC</option>
+			  <option value="DS">DS</option>
+			</select>
+			<br/>
+		  <div class="form-group">
+			<label for="password1">Choose a password</label>
+			<input required type="password" class="form-control" id="password1" name="password1" placeholder="Choose Your Password">
+		  </div>
+			<br/>
+		  <div class="form-group">
+			<label for="password2">Confirm Password</label>
+			<input required type="password" class="form-control" id="password2" name="password2" placeholder="Enter your password again">
+		  </div>
+			<br/>
+		  <div class="form-group">
+			<label for="graduation_year">Enter your graduation Year</label>
+			<input required type="number" class="form-control" id="graduation_year" name="graduation_year" placeholder="Enter your graduation Year">
+		  </div>
+
+
+        {% csrf_token %}
+			<br/>
+			<center>
+        <button type="submit" class="btn btn-primary">Submit</button>
+				</center>
+
+			<br>
+</form>
+
+
+
+{% endblock %}

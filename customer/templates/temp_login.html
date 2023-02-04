@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<center>
+	<h1>Hello Welcome {{request.user.degree}}</h1>
+	<br/><br/>
+		<a href = '/logout'>Click here to logout</a>
+	</center>
+
+{% endblock %}
