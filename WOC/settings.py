@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-bszc234(yuaqtjpayae@$o!lh36k6-7pm65!xxp0ee8$vqv3i9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['jainil1213.pythonanywhere.com']
 
 
 # Application definition
@@ -121,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/jainil1213/woc5.0-django-interviewblog-Jainil_Patel/static'
 MEDIA_URL = "/image/download/"
 MEDIA_ROOT = BASE_DIR
 
